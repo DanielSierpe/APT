@@ -52,7 +52,6 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-
 # Miscellaneous
 /.angular
 /.angular/cache
@@ -68,3 +67,27 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Dependencias
+/node_modules
+/platforms
+/plugins
+
+# Archivos de compilación
+/www
+/dist
+
+# Archivos de configuración local
+*.log
+npm-debug.log*
+.DS_Store
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Entorno
+.env
