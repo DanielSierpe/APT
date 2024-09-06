@@ -1,13 +1,28 @@
 <ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-    </ion-item>
-    <ion-button expand="block" type="submit" class="ion-margin-top">Iniciar sesión</ion-button>
-  </form>
+  <div class="login-container">
+    <img src="/assets/img/logo2.png" alt="Logo de la aplicación" class="logo">
+    
+    <form (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" type="submit">Iniciar sesión</ion-button>
+    </form>
+    
+    <div class="links">
+      <ion-text color="primary">
+        <p><a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a></p>
+      </ion-text>
+      <ion-text color="primary">
+        <p><a routerLink="/register">Registrarse</a></p>
+      </ion-text>
+    </div>
+  </div>
 </ion-content>

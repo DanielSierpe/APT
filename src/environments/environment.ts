@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000' // Asegúrate de que este sea el puerto correcto de tu backend
+  apiUrl: 'http://localhost:3000' // Ajusta esto a la URL de tu servidor de desarrollo
 };
 
 /*

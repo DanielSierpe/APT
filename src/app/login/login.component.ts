@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,38 +10,26 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  error: string = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastController: ToastController
-  ) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  async onSubmit() {
-    try {
-      const result = await this.authService.login(this.email, this.password).toPromise();
-      console.log('Login exitoso', result);
-      this.router.navigate(['/home']);
-    } catch (error: unknown) {
-      console.error('Error en el login', error);
-      if (error instanceof HttpErrorResponse) {
-        if (error.status === 401) {
-          this.presentToast('Credenciales inválidas');
+  onSubmit() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        console.log('Login exitoso', response);
+        // Guarda el token en localStorage
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Error en el login', error);
+        if (error.error && error.error.message) {
+          this.error = error.error.message;
         } else {
-          this.presentToast('Error en el servidor. Por favor, intenta más tarde.');
+          this.error = 'Ocurrió un error durante el inicio de sesión. Por favor, intenta de nuevo.';
         }
-      } else {
-        this.presentToast('Ocurrió un error inesperado');
       }
-    }
-  }
-
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
     });
-    toast.present();
   }
 }

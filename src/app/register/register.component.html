@@ -1,0 +1,88 @@
+<ion-content class="ion-padding">
+  <div class="register-container">
+    <h1>Registro</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" formControlName="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input type="text" formControlName="apellido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">RUT (12.345.678-9)</ion-label>
+        <ion-input type="text" formControlName="rut"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="registerForm.get('rut')?.hasError('invalidRut')">
+        Formato de RUT inválido.
+      </ion-text>
+      <ion-text color="danger" *ngIf="registerForm.get('rut')?.hasError('rutTaken')">
+        Este RUT ya está registrado.
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="floating">Fecha de Nacimiento</ion-label>
+        <ion-input type="date" formControlName="fecha_nacimiento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="registerForm.get('email')?.hasError('email')">
+        Formato de email inválido.
+      </ion-text>
+      <ion-text color="danger" *ngIf="registerForm.get('email')?.hasError('emailTaken')">
+        Este email ya está registrado.
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Confirmar Contraseña</ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Teléfono (+56912345678)</ion-label>
+        <ion-input type="tel" formControlName="telefono"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="registerForm.get('telefono')?.hasError('invalidTelefono')">
+        Formato de teléfono inválido.
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="floating">Nº Departamento</ion-label>
+        <ion-input type="text" formControlName="nro_departamento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Tipo de Residente</ion-label>
+        <ion-select formControlName="tipo_residente">
+          <ion-select-option value="propietario">Propietario</ion-select-option>
+          <ion-select-option value="arrendatario">Arrendatario</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nº Estacionamiento</ion-label>
+        <ion-input type="text" formControlName="nro_estacionamiento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nº Bodega</ion-label>
+        <ion-input type="text" formControlName="nro_bodega"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">Registrarse</ion-button>
+    </form>
+
+    <ion-text color="danger" *ngIf="error">{{ error }}</ion-text>
+  </div>
+</ion-content>
