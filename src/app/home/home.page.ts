@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
-import { register } from 'swiper/element/bundle';
-
-register();
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,28 +7,21 @@ register();
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  constructor(private menu: MenuController) {}
+  userRole: number | undefined;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    const swiperEl = document.querySelector('swiper-container');
-    if (swiperEl) {
-      Object.assign(swiperEl, {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        pagination: true,
-        autoplay: {
-          delay: 3000,
-        },
-      });
-      swiperEl.initialize();
+    this.getUserRole();
+  }
+
+  async getUserRole() {
+    try {
+      this.userRole = await this.authService.getUserRole();
+      console.log('Rol del usuario en el componente:', this.userRole);
+    } catch (error) {
+      console.error('Error al obtener el rol del usuario:', error);
+      this.userRole = 0;
     }
-  }
-
-  openMenu() {
-    this.menu.open('first');
-  }
-
-  closeMenu() {
-    this.menu.close('first');
   }
 }

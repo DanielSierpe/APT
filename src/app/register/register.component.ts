@@ -73,24 +73,24 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
+      console.log('Datos a enviar:', this.registerForm.value);
       this.authService.register(this.registerForm.value).subscribe({
         next: (response) => {
           console.log('Registro exitoso', response);
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.error('Error en el registro', error);
-          if (error.error.field === 'email') {
-            this.registerForm.get('email')?.setErrors({ emailTaken: true });
-          } else if (error.error.field === 'rut') {
-            this.registerForm.get('rut')?.setErrors({ rutTaken: true });
+          console.error('Error detallado:', error);
+          if (error.error instanceof ErrorEvent) {
+            this.error = `Error del cliente: ${error.error.message}`;
           } else {
-            this.error = error.error.message || 'Ocurrió un error durante el registro';
+            this.error = `Error del servidor: ${error.status} - ${error.error?.message || error.statusText}`;
           }
         }
       });
     } else {
-      this.error = 'Por favor, completa todos los campos requeridos correctamente.';
+      this.error = 'Por favor, completa todos los campos correctamente.';
+      console.log('Formulario inválido:', this.registerForm.errors);
     }
   }
 }
