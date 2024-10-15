@@ -1,0 +1,37 @@
+<app-layout [pageTitle]="'Panel de Control'">
+  <ion-content class="ion-padding">
+    <h1>Panel de Control</h1>
+    <h2>Total de usuarios: {{ totalUsers }}</h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>Nombre</ion-col>
+        <ion-col>Apellido</ion-col>
+        <ion-col>RUT</ion-col>
+        <ion-col>Email</ion-col>
+        <ion-col>Teléfono</ion-col>
+        <ion-col>Nro. Departamento</ion-col>
+        <ion-col>Nro. Estacionamiento</ion-col>
+        <ion-col>Nro. Bodega</ion-col>
+        <ion-col>Tipo Residente</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let user of users">
+        <ion-col>{{ user.nombre }}</ion-col>
+        <ion-col>{{ user.apellido }}</ion-col>
+        <ion-col>{{ user.rut }}</ion-col>
+        <ion-col>{{ user.email }}</ion-col>
+        <ion-col>{{ user.telefono }}</ion-col>
+        <ion-col>{{ user.nro_departamento }}</ion-col>
+        <ion-col>{{ user.nro_estacionamiento }}</ion-col>
+        <ion-col>{{ user.nro_bodega }}</ion-col>
+        <ion-col>{{ user.tipo_residente }}</ion-col>
+        <ion-col>
+          <ion-button (click)="editUser(user)" size="small">Editar</ion-button>
+          <ion-button (click)="deleteUser(user)" color="danger" size="small">Eliminar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</app-layout>

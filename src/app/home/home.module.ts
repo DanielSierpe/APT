@@ -3,17 +3,18 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
 import { HomePageRoutingModule } from './home-routing.module';
+import { SharedModule } from '../shared/shared.module'; // Importa SharedModule
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SharedModule // Añade SharedModule aquí
   ],
-  declarations: [HomePage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [HomePage], // LayoutComponent NO debe estar aquí
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Añade esta línea
 })
 export class HomePageModule {}

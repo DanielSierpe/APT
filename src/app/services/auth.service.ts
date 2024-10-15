@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -13,8 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
-      tap((response: any) => {
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap(response => {
+        if (response && response.token) {
+          localStorage.setItem('token', response.token);
+        }
         if (response && response.user) {
           this.setCurrentUser(response.user);
         }
@@ -60,5 +63,10 @@ export class AuthService {
 
   clearCurrentUser(): void {
     localStorage.removeItem('currentUser');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.clearCurrentUser();
   }
 }

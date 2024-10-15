@@ -19,6 +19,12 @@ export class LoginComponent {
       next: (response) => {
         console.log('Login exitoso', response);
         localStorage.setItem('token', response.token);
+        
+        // Guardar la información del usuario
+        if (response.user) {
+          this.authService.setCurrentUser(response.user);
+        }
+        
         this.router.navigate(['/home']);
       },
       error: (error) => {

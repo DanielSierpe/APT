@@ -1,0 +1,63 @@
+<ion-menu side="start" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <!-- Opciones para todos los usuarios -->
+      <ion-item button routerLink="/home">
+        <ion-icon name="home" slot="start"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-item>
+
+      <!-- Opciones solo para administradores -->
+      <ng-container *ngIf="userRole === 1">
+        <ion-item button routerLink="/panel-control">
+          <ion-icon name="people" slot="start"></ion-icon>
+          <ion-label>Panel de control de usuario</ion-label>
+        </ion-item>
+        <ion-item button>
+          <ion-icon name="document-text" slot="start"></ion-icon>
+          <ion-label>Solicitudes</ion-label>
+        </ion-item>
+        <ion-item button>
+          <ion-icon name="add-circle" slot="start"></ion-icon>
+          <ion-label>Publicar actividades</ion-label>
+        </ion-item>
+      </ng-container>
+
+      <!-- Opciones solo para usuarios normales -->
+      <ion-item button *ngIf="userRole === 2">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>Mi Perfil</ion-label>
+      </ion-item>
+
+      <!-- Otras opciones comunes -->
+      <ion-item button>
+        <ion-icon name="settings" slot="start"></ion-icon>
+        <ion-label>Configuración</ion-label>
+      </ion-item>
+      <ion-item button>
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{ pageTitle }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <ng-content></ng-content>
+  </ion-content>
+</div>

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { LayoutComponent } from '../layout/layout.component';
+import { register } from 'swiper/element/bundle';
+
+register(); // Registra los elementos de Swiper
 
 @Component({
   selector: 'app-home',
